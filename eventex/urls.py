@@ -1,11 +1,12 @@
 from django.conf.urls import patterns, include, url
+from django.conf import settings
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
 # admin.autodiscover()
 
 urlpatterns = patterns('eventex.core.views',
-      url(r'^$', 'homepage', name='homepage'),
+    url(r'^$', 'homepage', name='homepage'),
     # url(r'^eventex/', include('eventex.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
@@ -15,3 +16,8 @@ urlpatterns = patterns('eventex.core.views',
     # url(r'^admin/', include(admin.site.urls)),
 
 )
+
+urlpatterns += patterns('django.views.static',
+	url(r'^static/(?P<path>.*)$','serve',
+	{'document_root': settings.STATIC_ROOT}),
+	)
